@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140dp">
+
+    <TextView
+        android:id="@+id/LoginParticipantsTvId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Nick"
+        android:textSize="25dp"/>
+
+    <RatingBar
+        android:id="@+id/RateSomeoneRatingBarId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ProfilParticipantsBtId" />
+
+    <Button
+        android:id="@+id/ProfilParticipantsBtId"
+        android:layout_width="107dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/RateSomeoneRatingBarId"
+        android:text="Profil" />
+
+    <Button
+        android:id="@+id/FriendsProfilParticipantsBtId"
+        android:layout_width="107dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/ProfilParticipantsBtId"
+        android:layout_below="@+id/ProfilParticipantsBtId"
+        android:text="Znajomi" />
+
+    <Button
+        android:id="@+id/MessageParticipantsBtId"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/FriendsProfilParticipantsBtId"
+        android:layout_toEndOf="@+id/RateSomeoneRatingBarId"
+        android:text="Wiadomość" />
+</RelativeLayout>

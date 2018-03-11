@@ -1,0 +1,73 @@
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto">
+
+    <fragment
+        android:id="@+id/place_autocomplete_fragment"
+        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:layout_above="@+id/button2"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:id="@+id/topPanel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/toolbarid"
+            layout="@layout/toolbar"
+            ></include>
+
+
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="470dp"
+        android:layout_alignParentBottom="true"
+
+        tools:context="com.example.ad.maps3.MapsActivity" />
+
+    <EditText
+        android:id="@+id/opisEtId"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/rodzajEtId"
+        android:layout_alignBottom="@+id/rodzajEtId"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="Opis"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/rodzajEtId"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/map"
+        android:layout_marginEnd="25dp"
+        android:layout_toStartOf="@+id/button2"
+        android:ems="10"
+        android:hint="Rodzaj"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/opisEtId"
+        android:layout_alignParentEnd="true"
+        android:onClick="addActivity"
+        android:text="add" />
+
+</RelativeLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/profileIdMenu"
+        android:title="@string/Profile"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/photosIdMenu"
+        android:title="@string/Photos"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/friendsIdMenu"
+        android:title="@string/Friends"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/messagesIdMenu"
+        android:title="@string/Messages"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/activitiesIdMenu"
+        android:title="@string/Activities"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/LogoutIdMenu"
+        android:title="@string/LogOut"
+        app:showAsAction="never">
+    </item>
+</menu>

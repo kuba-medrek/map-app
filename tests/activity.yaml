@@ -1,0 +1,348 @@
+# ADD ACTIVITY
+
+- test:
+    - name: "Add activity"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityName=TestActivity&activityDescription=TestActivityDescription&lat=50&lng=20&creatorId=1&kindOfActivity=TestKindOfActivity'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [201]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'activity.activity_name', expected: 'TestActivity'}
+
+- test:
+    - name: "Try to add activity without name"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityDescription=TestActivityDescription&lat=50&lng=20&creatorId=1&kindOfActivity=TestKindOfActivity'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to add activity without description"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityName=TestActivity&lat=50&lng=20&creatorId=1&kindOfActivity=TestKindOfActivity'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to add activity without lat"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityName=TestActivity&activityDescription=TestActivityDescription&lng=20&creatorId=1&kindOfActivity=TestKindOfActivity'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to add activity without lng"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityName=TestActivity&activityDescription=TestActivityDescription&lat=50&creatorId=1&kindOfActivity=TestKindOfActivity'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to add activity without creatorId"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityName=TestActivity&activityDescription=TestActivityDescription&lat=50&lng=20&kindOfActivity=TestKindOfActivity'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to add activity without kindOfActivity"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityName=TestActivity&activityDescription=TestActivityDescription&lat=50&lng=20&creatorId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to add activity with bad Lat format (string)"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityName=TestActivity&activityDescription=TestActivityDescription&lat=fifty&lng=20&creatorId=1&kindOfActivity=TestKindOfActivity'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badformat'}
+
+- test:
+    - name: "Try to add activity with bad Lng format (string)"
+    - url: "./activity/addActivity.php"
+    - method: 'POST'
+    - body: 'activityName=TestActivity&activityDescription=TestActivityDescription&lat=50&lng=twenty&creatorId=1&kindOfActivity=TestKindOfActivity'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badformat'}
+
+# JOIN ACTIVITY
+
+- test:
+    - name: "Join activity"
+    - url: "./activity/joinActivity.php"
+    - method: 'POST'
+    - body: 'activityId=1&userId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [200]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'activity.activity_id', expected: '1'}
+
+- test:
+    - name: "Try to join non-existiing activity"
+    - url: "./activity/joinActivity.php"
+    - method: 'POST'
+    - body: 'activityId=9999999&userId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to join activity by non-existing user"
+    - url: "./activity/joinActivity.php"
+    - method: 'POST'
+    - body: 'activityId=1&userId=9999999'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to join activity without providing userId"
+    - url: "./activity/joinActivity.php"
+    - method: 'POST'
+    - body: 'activityId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to join activity without providing activityId"
+    - url: "./activity/joinActivity.php"
+    - method: 'POST'
+    - body: 'userId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to join activity with non-numeric activityId"
+    - url: "./activity/joinActivity.php"
+    - method: 'POST'
+    - body: 'userId=1&activityId=wrong'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badformat'}
+
+- test:
+    - name: "Try to join activity with non-numeric userId"
+    - url: "./activity/joinActivity.php"
+    - method: 'POST'
+    - body: 'userId=wrong&activityId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badformat'}
+
+# LIST ACTIVITIES
+
+- test:
+    - name: "List all activities in database"
+    - url: "./activity/listActivities.php"
+    - method: 'POST'
+    - body: 'mode=all'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [200]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'activities', comparator: 'type', expected: 'Array'}
+
+- test:
+    - name: "List all activities hosted by user"
+    - url: "./activity/listActivities.php"
+    - method: 'POST'
+    - body: 'mode=host&userId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [200]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'activities', comparator: 'type', expected: 'Array'}
+
+- test:
+    - name: "Try to list all activities hosted by non-existing user"
+    - url: "./activity/listActivities.php"
+    - method: 'POST'
+    - body: 'mode=host&userId=999'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to list all activities hosted by non-numeric userId"
+    - url: "./activity/listActivities.php"
+    - method: 'POST'
+    - body: 'mode=host&userId=wrong'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badformat'}
+
+- test:
+    - name: "List all activities where userId was guest"
+    - url: "./activity/listActivities.php"
+    - method: 'POST'
+    - body: 'mode=guest&userId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [200]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'activities', comparator: 'type', expected: 'Array'}
+
+- test:
+    - name: "Try to list all activities where non-numeric userId was guest"
+    - url: "./activity/listActivities.php"
+    - method: 'POST'
+    - body: 'mode=guest&userId=wrong'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badformat'}
+
+- test:
+    - name: "Try to list all activities where not provided userId was guest"
+    - url: "./activity/listActivities.php"
+    - method: 'POST'
+    - body: 'mode=guest'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+# activity.php
+
+- test:
+    - name: "Show activity details"
+    - url: "./activity.php"
+    - method: 'POST'
+    - body: 'mode=details&activityId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [200]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'data', comparator: 'type', expected: 'Array'}
+
+- test:
+    - name: "Try to show non-existing activity details"
+    - url: "./activity.php"
+    - method: 'POST'
+    - body: 'mode=details&activityId=999'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to show non-numeric activity details"
+    - url: "./activity.php"
+    - method: 'POST'
+    - body: 'mode=details&activityId=wrong'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badformat'}
+
+- test:
+    - name: "Try to show non-set activity details"
+    - url: "./activity.php"
+    - method: 'POST'
+    - body: 'mode=details'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Show activity guests"
+    - url: "./activity.php"
+    - method: 'POST'
+    - body: 'mode=guests&activityId=1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [200]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'data', comparator: 'type', expected: 'Array'}
+
+- test:
+    - name: "Try to show non-existing activity guests"
+    - url: "./activity.php"
+    - method: 'POST'
+    - body: 'mode=guests&activityId=999'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to show non-numeric activity guests"
+    - url: "./activity.php"
+    - method: 'POST'
+    - body: 'mode=guests&activityId=wrong'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badformat'}
+
+- test:
+    - name: "Try to show non-set activity guests"
+    - url: "./activity.php"
+    - method: 'POST'
+    - body: 'mode=guests'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}

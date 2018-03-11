@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ad.retrofittest.Activities.ActivityDetails">
+
+    <LinearLayout
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/creatorActivityDetailsTvId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="twórca"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/typeActivityDetailsTvId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="rodzaj"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/startDateActivityDetailsTvId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="data startu"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/AdressActivityDetailsTvId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="adres"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/descriptionActivityDetailsTvId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout2"
+        android:text="Opis"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/yourRatingActivityDetailsTvId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/descriptionActivityDetailsTvId"
+        android:text="Otrzymałeś&#xA;Ocenę: "
+        android:textSize="20dp" />
+
+    <RatingBar
+        android:id="@+id/YourRatingBarId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionActivityDetailsTvId"
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@+id/yourRatingActivityDetailsTvId" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/UsersOfActivityId"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        >
+
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/YourRatingBarId"
+        android:layout_marginTop="12dp"
+        android:textSize="20dp"
+        android:text="Do wydarzenia dołączyli: " />
+
+</RelativeLayout>

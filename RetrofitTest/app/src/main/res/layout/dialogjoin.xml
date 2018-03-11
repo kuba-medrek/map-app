@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialogJoinNickId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nick"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/dialogJoinDescriptionId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Opis"
+        android:textSize="20dp"/>
+
+
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/joinBtDialogId"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:onClick="joinBtDialog"
+            android:text="Dołącz" />
+        <Button
+            android:id="@+id/sendBtDialogId"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            />
+        <Button
+            android:id="@+id/profilBtDialogId"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="Profil" />
+        <Button
+            android:id="@+id/CancelBtDialogId"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="anuluj" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/testsss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="                                                                             "
+        android:textSize="20dp"/>
+
+    </LinearLayout>
+
+

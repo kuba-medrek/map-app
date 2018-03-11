@@ -1,0 +1,163 @@
+- config:
+    - testset: "adrian.kubahaha.tk tests"
+
+# - test:
+#     - name: "Register new account"
+#     - url: './account/register.php'
+#     - method: 'POST'
+#     - body: 'login=testUser1&password=testUser1&email=testUser1%40example.com'
+#     - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+#     - expected_status: [200]
+#     - validators:
+#         #- compare: {header: content-type, comparator: contains, expected:'json'} # not yet implemented
+#         - compare: {jsonpath_mini: 'status', expected: 'ok'}
+#         - compare: {jsonpath_mini: 'code', expected: 'registered'}
+
+- test:
+    - name: "Try to register account with the same email"
+    - url: './account/register.php'
+    - method: 'POST'
+    - body: 'login=testUser2&password=testUser2&email=testUser1%40example.com'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [404]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'emaildupl'}
+
+- test:
+    - name: "Try to register account with the same login"
+    - url: './account/register.php'
+    - method: 'POST'
+    - body: 'login=testUser1&password=testUser3&email=testUser3%40example.com'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [404]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'logindupl'}
+
+- test:
+    - name: "Try to register account without email"
+    - url: './account/register.php'
+    - method: 'POST'
+    - body: 'login=testUser4&password=testUser4'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to register account without login"
+    - url: './account/register.php'
+    - method: 'POST'
+    - body: 'password=testUser5&email=testUser5%40example.com'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try to register account without password"
+    - url: './account/register.php'
+    - method: 'POST'
+    - body: 'login=testUser6&email=testUser6%40example.com'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+# LOGIN
+
+- test:
+    - name: "Login to account"
+    - url: "./account/login.php"
+    - method: 'POST'
+    - body: 'login=testUser1&password=testUser1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [200]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'code', expected: 'logged'}
+        - compare: {jsonpath_mini: 'user_id', comparator: 'regex', expected: '\d+'}
+
+- test:
+    - name: "Try login to account with bad password"
+    - url: "./account/login.php"
+    - method: 'POST'
+    - body: 'login=testUser1&password=wrong'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [403]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badpass'}
+        #- compare: {jsonpath_mini: 'code', expected: 'badpass'} # Not yet implemented
+
+- test:
+    - name: "Try login to non-existing account"
+    - url: "./account/login.php"
+    - method: 'POST'
+    - body: 'login=nonExistingUser123125432&password=wrong'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [404]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'noacc'}
+        #- compare: {jsonpath_mini: 'code', expected: 'noacc'} # Not yet implemented
+
+- test:
+    - name: "Try login to login without login"
+    - url: "./account/login.php"
+    - method: 'POST'
+    - body: 'password=wrong'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+- test:
+    - name: "Try login without password"
+    - url: "./account/login.php"
+    - method: 'POST'
+    - body: 'login=testUser1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}
+
+# USER
+
+- test:
+    - name: "Get info about user"
+    - url: "./user.php"
+    - method: 'POST'
+    - body: 'userLogin=testUser1'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [200]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'ok'}
+        - compare: {jsonpath_mini: 'data.login', expected: 'testUser1'}
+
+- test:
+    - name: "Try to get info about non-existing user"
+    - url: "./user.php"
+    - method: 'POST'
+    - body: 'userLogin=testUser10'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [404]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'noacc'}
+
+- test:
+    - name: "Try to get info about user without sending username"
+    - url: "./user.php"
+    - method: 'POST'
+    - headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    - expected_status: [400]
+    - validators:
+        - compare: {jsonpath_mini: 'status', expected: 'error'}
+        - compare: {jsonpath_mini: 'code', expected: 'badreq'}

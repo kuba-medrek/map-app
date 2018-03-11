@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ad.retrofittest.Account.Register">
+
+    <EditText
+        android:id="@+id/loginEtIdReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/passwordEtIdReg"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/passwordEtIdReg"
+        android:layout_marginTop="39dp"
+        android:ems="10"
+        android:hint="login"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/passwordEtIdReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginEtIdReg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/repasswordEtIdReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/passwordEtIdReg"
+        android:layout_alignStart="@+id/passwordEtIdReg"
+        android:layout_below="@+id/passwordEtIdReg"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="Re-password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/emailEtIdReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/repasswordEtIdReg"
+        android:layout_alignStart="@+id/repasswordEtIdReg"
+        android:layout_below="@+id/repasswordEtIdReg"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:hint="e-mail"
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:id="@+id/registerBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailEtIdReg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:onClick="registerBt"
+        android:text="Register" />
+
+    <TextView
+        android:id="@+id/answerTvIdReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registerBt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp" />
+
+</RelativeLayout>

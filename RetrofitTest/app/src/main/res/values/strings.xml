@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RetrofitTest</string>
+    <string name="Profile">Profil</string>
+    <string name="Photos">Zdjecia</string>
+    <string name="Friends">Znajomi</string>
+    <string name="Messages">Wiadomości</string>
+    <string name="Activities">Aktywności</string>
+    <string name="LogOut">Wyloguj</string>
+    <string name="title_activity_start">Metting App</string>
+
+</resources>
